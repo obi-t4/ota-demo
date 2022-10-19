@@ -1,0 +1,6 @@
+[submodule "ota-client"]
+	path = ota-client
+	url = https://github.com/tier4/ota-client
+[submodule "ota-metadata"]
+	path = ota-metadata
+	url = https://github.com/tier4/ota-metadata

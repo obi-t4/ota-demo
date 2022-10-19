@@ -49,17 +49,11 @@ rootfs-18.04 rootfs-20.04 rootfs-22.04:
 	mkdir -p rootfs.${RELEASE}/rootfs
 	sudo tar xf ${RELEASE}.tar -C rootfs.${RELEASE}/rootfs
 
-ota-metadata:
-	git clone https://github.com/tier4/ota-metadata
-
-ota-client:
-	git clone https://github.com/tier4/ota-client
-
 metadata-18.04: RELEASE=18.04
 metadata-20.04: RELEASE=20.04
 metadata-22.04: RELEASE=22.04
 
-metadata-18.04 metadata-20.04 metadata-22.04: ota-metadata ota-client
+metadata-18.04 metadata-20.04 metadata-22.04:
 	( \
 	cp ota-metadata/metadata/persistents.txt \
 		ota-client/tests/keys/sign.pem \

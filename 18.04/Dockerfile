@@ -27,7 +27,7 @@ RUN source /opt/ota/.venv/bin/activate && \
 	pip install /tmp/ota-client && \
         pip install -t /opt/ota --no-deps /tmp/ota-client
 RUN cp -r /tmp/ota-client/bootstrap/root/* /
-RUN sed -i 's/python3/pyton3.8/g' /etc/systemd/system/otaclient.service
+RUN sed -i 's/python3/python3.8/g' /etc/systemd/system/otaclient.service
 RUN systemctl enable otaclient
 
 # add autoware user

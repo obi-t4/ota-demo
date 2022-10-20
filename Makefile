@@ -46,8 +46,8 @@ rootfs-18.04 rootfs-20.04 rootfs-22.04:
 	docker start $$docker_id; \
 	docker export $$docker_id > ${RELEASE}.tar; \
 	docker stop $$docker_id
-	mkdir -p rootfs.${RELEASE}/rootfs
-	sudo tar xf ${RELEASE}.tar -C rootfs.${RELEASE}/rootfs
+	mkdir -p rootfs/${RELEASE}/rootfs
+	sudo tar xf ${RELEASE}.tar -C rootfs/${RELEASE}/rootfs
 
 metadata-18.04: RELEASE=18.04
 metadata-20.04: RELEASE=20.04
@@ -57,14 +57,14 @@ metadata-18.04 metadata-20.04 metadata-22.04:
 	( \
 	cp ota-metadata/metadata/persistents.txt \
 		ota-client/tests/keys/sign.pem \
-		rootfs.${RELEASE}; \
-	cd rootfs.${RELEASE}; \
-	sudo python3 ../ota-metadata/metadata/ota_metadata/metadata_gen.py \
+		rootfs/${RELEASE}; \
+	cd rootfs/${RELEASE}; \
+	sudo python3 ../../ota-metadata/metadata/ota_metadata/metadata_gen.py \
 		--target-dir rootfs \
 		--compressed-dir rootfs.zst \
-		--ignore-file ../ota-metadata/metadata/ignore.txt; \
-	sudo python3 ../ota-metadata/metadata/ota_metadata/metadata_sign.py \
-		--sign-key ../ota-client/tests/keys/sign.key \
+		--ignore-file ../../ota-metadata/metadata/ignore.txt; \
+	sudo python3 ../../ota-metadata/metadata/ota_metadata/metadata_sign.py \
+		--sign-key ../../ota-client/tests/keys/sign.key \
 		--cert-file sign.pem \
 		--persistent-file persistents.txt \
 		--rootfs-directory rootfs \
@@ -73,4 +73,4 @@ metadata-18.04 metadata-20.04 metadata-22.04:
 
 .PHONY: clean
 clean:
-	rm -rf rootfs.* *.tar
+	rm -rf rootfs *.tar
